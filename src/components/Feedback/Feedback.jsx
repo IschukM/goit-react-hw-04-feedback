@@ -1,17 +1,24 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './Feedback.css';
-export const Feedback = ({ onIncrement }) => (
+
+export const Feedback = ({ options, onLeaveFeedback }) => (
   <>
     <div className="Controls">
-      <button type="button" onClick={onIncrement}>
-        Good
-      </button>
-      <button type="button" onClick={onIncrement}>
-        Neutral
-      </button>
-      <button type="button" onClick={onIncrement}>
-        Bad
-      </button>
+      <ul className="FeedList">
+        {options.map(option => (
+          <li key={option}>
+            <button onClick={onLeaveFeedback} name={option} type="button">
+              {option}
+            </button>
+          </li>
+        ))}
+      </ul>
     </div>
   </>
 );
+
+Feedback.propTypes = {
+  options: PropTypes.arrayOf(PropTypes.string.isRequired),
+  onLeaveFeedback: PropTypes.func.isRequired,
+};
